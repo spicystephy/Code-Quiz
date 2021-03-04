@@ -1,0 +1,20 @@
+body {
+    background-color: #f1d7e9
+  }
+
+h1 {
+    text-align: center;
+}
+h2 {
+    text-align: center;
+}
+p {
+    text-align: center;
+  }
+#questions{
+    text-align: center;
+}
+#choices{
+    text-align: center;
+}
+  @media screen and (max-width: 768px) {}
