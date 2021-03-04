@@ -1,8 +1,10 @@
 var startBtn = document.querySelector("#startTimerBtn");
 var startTimer = document.querySelector("#timer");
 var secondsLeft = 60;
-var questionList = document.querySelector("#questions");
-var options = document.querySelector("#choices");
+var questionEl = document.querySelector("#questions");
+var choices = document.querySelector("#choices");
+var currentIndex = 0
+var questionTitle = document.querySelector("#question-title");
 
 function setTime() {
   var timerInterval = setInterval(function () {
@@ -14,9 +16,9 @@ function setTime() {
     }
   }, 1000);
 }
+startBtn.addEventListener("click", function(e){
 
-
-  startBtn.addEventListener("click");
+  });
 
 
 //generate a start button
@@ -24,12 +26,29 @@ function setTime() {
 //presented with question 1 and options
 //add event listener click
 
+//functin=on that recalls makeQuestion
 //if user answer === true, display message "Correct", move on to next question
 //carousel?
 //if user answer === false, display message "Try Again"
 //prevent default?
 //subtract 10 seconds
 
+function makeQuestion(){
+    //start showing question starting at 0
+    var currentQuestion = questionList[currentIndex];
+    //display the actual question from the questionList
+    questionTitle.innerText = currentQuestion.question;
+    //displays options for question being accessed
+    for(var option of currentQuestion.options){
+        //for each option, a button element is created, accepts the option element to be the option, appends the btn to choices div
+        var optionBtn = document.createElement("button")
+        //make innertext be the string value of the option array
+        optionBtn.innerText = option;
+        //button is placed with the text from options being referenced at current index for user to see
+        choices.append(optionBtn);
+    }
+  
+}
 //array of objects for questions and answers
 var questionList = [
   {
@@ -63,7 +82,7 @@ var questionList = [
     options: ["A. No", "B. Ugh", "C. Hi!", "D. Ew"],
   },
 ];
-//loop through these questions by iterating over indexes? nested loops?
+
 
 // GIVEN I am taking a code quiz
 // WHEN I click the start button
