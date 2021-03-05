@@ -1,40 +1,31 @@
 var startBtn = document.querySelector("#startTimerBtn");
-var startTimer = document.querySelector("#timer");
+var timerEl = document.querySelector("#timer");
 var secondsLeft = 60;
 var questionEl = document.querySelector("#questions");
+//or queryselectorall?
 var choices = document.querySelector("#choices");
 var currentIndex = 0
 var questionTitle = document.querySelector("#question-title");
+var message = document.querySelector("#message");
 
-function setTime() {
+//function for setting the timer
+function setTimer() {
   var timerInterval = setInterval(function () {
     secondsLeft--;
-    startTimer.textContent = secondsLeft;
+    timerEl.textContent = secondsLeft;
     if (secondsLeft === 0) {
       clearInterval(timerInterval);
-      sendMessage();
+      "Time is up. Try again.";
     }
   }, 1000);
 }
-startBtn.addEventListener("click", function(e){
 
-  });
-
-
-//generate a start button
-//add event listener click
-//presented with question 1 and options
-//add event listener click
-
-//functin=on that recalls makeQuestion
-//if user answer === true, display message "Correct", move on to next question
-//carousel?
-//if user answer === false, display message "Try Again"
-//prevent default?
-//subtract 10 seconds
+//generate a start button, add event listener click
+timerEl.addEventListener("click", makeQuestion);
+// beginQuiz.onclick = setTimer;
 
 function makeQuestion(){
-    //start showing question starting at 0
+    //start showing question starting at [0]
     var currentQuestion = questionList[currentIndex];
     //display the actual question from the questionList
     questionTitle.innerText = currentQuestion.question;
@@ -44,11 +35,36 @@ function makeQuestion(){
         var optionBtn = document.createElement("button")
         //make innertext be the string value of the option array
         optionBtn.innerText = option;
+        optionBtn.onclick = giveAnswer;
         //button is placed with the text from options being referenced at current index for user to see
         choices.append(optionBtn);
     }
   
 }
+
+//presented with question 1 and options
+//add event listener click to options
+
+//function that recalls makeQuestion if user answer === true, display message "Correct", move on to next question
+//if user answer === false, display message "Try Again"
+//prevent default?
+
+function giveAnswer(){
+    var correctAnswer = questionList[currentIndex].answer;
+    // console.log(this.innerText);
+    // console.log(correctAnswer);
+    if(correctAnswer === this.innerText){
+        //moves on to the next question
+        "Correct!";
+        makeQuestion(currentIndex);
+    }else{
+        "Wrong answer."
+        setTimer - 10;
+    }
+}
+//make form to local storage for wins, loses, initials
+
+
 //array of objects for questions and answers
 var questionList = [
   {
@@ -69,7 +85,7 @@ var questionList = [
   {
     question: "3. What can arrays contain?",
     answer: "D. All of the above",
-    options: ["A. Strings", "B. Numbers", "Elements", "D. ALl of the above"],
+    options: ["A. Strings", "B. Numbers", "Objects", "D. ALl of the above"],
   },
   {
     question: "4. Which one is not an operator?",
