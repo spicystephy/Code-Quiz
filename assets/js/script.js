@@ -4,9 +4,11 @@ var secondsLeft = 60;
 var questionEl = document.querySelector("#questions");
 //or queryselectorall?
 var choices = document.querySelector("#choices");
-var currentIndex = 0
+var currentIndex = 0;
 var questionTitle = document.querySelector("#question-title");
 var message = document.querySelector("#message");
+var winsEl = document.querySelector("#wins");
+var lossesEl = document.querySelector("#losses");
 
 //function for setting the timer
 function setTimer() {
@@ -15,55 +17,48 @@ function setTimer() {
     timerEl.textContent = secondsLeft;
     if (secondsLeft === 0) {
       clearInterval(timerInterval);
-      "Time is up. Try again.";
     }
   }, 1000);
 }
 
 //generate a start button, add event listener click
-timerEl.addEventListener("click", makeQuestion);
-// beginQuiz.onclick = setTimer;
+startBtn.addEventListener("click", makeQuestion);
 
-function makeQuestion(){
-    //start showing question starting at [0]
-    var currentQuestion = questionList[currentIndex];
-    //display the actual question from the questionList
-    questionTitle.innerText = currentQuestion.question;
-    //displays options for question being accessed
-    for(var option of currentQuestion.options){
-        //for each option, a button element is created, accepts the option element to be the option, appends the btn to choices div
-        var optionBtn = document.createElement("button")
-        //make innertext be the string value of the option array
-        optionBtn.innerText = option;
-        optionBtn.onclick = giveAnswer;
-        //button is placed with the text from options being referenced at current index for user to see
-        choices.append(optionBtn);
-    }
-  
+function makeQuestion() {
+  setTimer();
+  //start showing question starting at [0]
+  var currentQuestion = questionList[currentIndex];
+  //display the actual question from the questionList
+  questionTitle.innerText = currentQuestion.question;
+  //displays options for question being accessed
+  for (var option of currentQuestion.options) {
+    //for each option, a button element is created, accepts the option element to be the option, appends the btn to choices div
+    var optionBtn = document.createElement("button");
+    //make innertext be the string value of the option array
+    optionBtn.innerText = option;
+    optionBtn.onclick = giveAnswer;
+    //button is placed with the text from options being referenced at current index for user to see
+    choices.append(optionBtn);
+  }
 }
 
-//presented with question 1 and options
-//add event listener click to options
-
-//function that recalls makeQuestion if user answer === true, display message "Correct", move on to next question
-//if user answer === false, display message "Try Again"
+//function that recalls makeQuestion
 //prevent default?
-
-function giveAnswer(){
-    var correctAnswer = questionList[currentIndex].answer;
-    // console.log(this.innerText);
-    // console.log(correctAnswer);
-    if(correctAnswer === this.innerText){
-        //moves on to the next question
-        "Correct!";
-        makeQuestion(currentIndex);
-    }else{
-        "Wrong answer."
-        setTimer - 10;
-    }
+function giveAnswer() {
+  var correctAnswer = questionList[currentIndex].answer;
+  console.log(this.innerText);
+  console.log(correctAnswer);
+  if (correctAnswer && this) {
+    //moves on to the next question
+    // document.getElementById("#message").innerHTML = "Correct!";
+    currentIndex++;
+  } else {
+    // document.getElementById("#message").innerHTML = "Wrong :(";
+    setTimer - 10;
+    currentIndex++;
+    //moves on to next question
+  }
 }
-//make form to local storage for wins, loses, initials
-
 
 //array of objects for questions and answers
 var questionList = [
@@ -99,20 +94,17 @@ var questionList = [
   },
 ];
 
-
-// GIVEN I am taking a code quiz
-// WHEN I click the start button
-// THEN a timer starts and I am presented with a question
-
-// WHEN I answer a question
-// THEN I am presented with another question
-
-// WHEN I answer a question incorrectly
-// THEN time is subtracted from the clock
-
-// WHEN all questions are answered or the timer reaches 0
-// THEN the game is over
-
-// WHEN the game is over
-// THEN I can save my initials and my score
-// ```
+//make form to local storage for wins, loses, initials
+function initWins() {
+  document.getElementById("#initials-form");
+  var storedWins = JSON.parse(localStorage.getItem("wins"));
+  if (storedWins !== null) {
+    wins = storedWins;
+  }
+}
+function initLosses() {
+  var storedLosses = JSON.parse(localStorage.getItem("losses"));
+  if (storedLosses !== null) {
+    losses = storedLosses;
+  }
+}

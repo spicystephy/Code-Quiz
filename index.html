@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -7,6 +8,7 @@
   <link rel="stylesheet" href="./assets/css/style.css" />
   <title>Coding Quiz</title>
 </head>
+
 <body>
   <div class="header">
     <h1>Welcome to the Coding Quiz!</h1>
@@ -17,13 +19,22 @@
     <div id="timer">
       <h3 id="timer-text"></h3>
       <h3>Seconds Remaining</h3>
-      <h3 id="message"></h3>
+      <p id="message"></p>
     </div>
-
+    <br>
     <div id="questions">
       <div id="question-title"></div>
-        <div id="choices">
+      <div id="choices">
       </div>
+    </div>
+    <div id="tracker">
+      <h2>Score Card</h2>
+      <form id="initials-form">
+        <label for="initials-form">Please enter your initials</label>
+        <input type="text" placeholder="Initials" name="initials-text" id="initials-text" />
+      </form>
+      <p>Wins: <span id="wins">0</span></p>
+      <p>Losses: <span id="losses">0</span></p>
     </div>
     <script src="./assets/js/script.js"></script>
 </body>
